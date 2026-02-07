@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Propose Day 💍</title>
+
+<style>
+body{
+  background: linear-gradient(to bottom right,#fff0f6,#fef6ff);
+  font-family:'Segoe UI',sans-serif;
+  text-align:center;
+  padding:25px;
+  color:#6b0036;
+  overflow:hidden;
+}
+
+.page{display:none; animation:fade 1s;}
+.page.active{display:block;}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(15px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+.icon{font-size:80px}
+
+.box{
+  background:#ffffffcc;
+  padding:22px;
+  border-radius:22px;
+  margin-top:20px;
+  box-shadow:0 12px 28px rgba(0,0,0,.12);
+}
+
+button{
+  padding:12px 26px;
+  border:none;
+  border-radius:30px;
+  background:#c7005c;
+  color:white;
+  font-size:16px;
+  margin:10px;
+  cursor:pointer;
+}
+button:hover{background:#a3004a}
+
+.no-btn{position:absolute}
+
+.heart{
+  position:absolute;
+  font-size:30px;
+  cursor:pointer;
+}
+
+img{
+  max-width:90%;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+.from{font-weight:bold; margin-top:15px}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 ROMANTIC ENGLISH LOVE SONG -->
+<audio autoplay loop>
+  <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Keys_of_Moon/Emotional_Music/Keys_of_Moon_-_03_-_Tenderness.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+  <div class="icon">💍</div>
+  <div class="box">
+    <h2>Hey Gurleen 💖</h2>
+    <p id="typing"></p>
+    <button onclick="go(2)">Start 💕</button>
+  </div>
+</div>
+
+<!-- PAGE 2 HEART GAME -->
+<div class="page" id="p2">
+  <div class="icon">🎮</div>
+  <div class="box">
+    <h2>Catch 3 hearts, baby 💞</h2>
+    <p>Tap the falling hearts</p>
+    <p id="score">0 / 3</p>
+  </div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+  <div class="icon">💌</div>
+  <div class="box">
+    <p>Every heart you caught…</p>
+    <p>is how much I fall for you, darling 🥹</p>
+    <button onclick="go(4)">Next 🌹</button>
+  </div>
+</div>
+
+<!-- PAGE 4 PHOTO -->
+<div class="page" id="p4">
+  <div class="icon">📸</div>
+  <div class="box">
+    <h2>My favorite view 🥹</h2>
+    <img src="gurleen.jpg" alt="Her photo">
+    <br><br>
+    <button onclick="go(5)">Continue 💗</button>
+  </div>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="p5">
+  <div class="icon">🌙</div>
+  <div class="box">
+    <p>I don’t want perfect moments…</p>
+    <p>I want real moments, with you, my love 🤍</p>
+    <button onclick="go(6)">One more 💫</button>
+  </div>
+</div>
+
+<!-- PAGE 6 PROMISE -->
+<div class="page" id="p6">
+  <div class="icon">🤍</div>
+  <div class="box">
+    <p>I promise respect.</p>
+    <p>I promise care.</p>
+    <p>I promise choosing you, always.</p>
+    <button onclick="go(7)">💖</button>
+  </div>
+</div>
+
+<!-- PAGE 7 PROPOSAL -->
+<div class="page" id="p7">
+  <div class="icon">💍</div>
+  <div class="box">
+    <h2>Gurleen…</h2>
+    <p>Will you be mine always, baby? 💖</p>
+    <button onclick="go(8)">YES 💞</button>
+    <button class="no-btn" id="no">NO 😤</button>
+  </div>
+</div>
+
+<!-- FINAL PAGE -->
+<div class="page" id="p8">
+  <div class="icon">🎉❤️</div>
+  <div class="box">
+    <h2>She said YES 😭💖</h2>
+    <p>Happy Propose Day, my baby, my love, my everything</p>
+    <div class="from">— Yours, Gurnaj</div>
+  </div>
+</div>
+
+<script>
+function go(p){
+ document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+ document.getElementById('p'+p).classList.add('active');
+}
+
+/* typing animation */
+const text="This is not just a website, baby… it’s my heart coded only for you 💖";
+let i=0;
+function typing(){
+ if(i<text.length){
+  document.getElementById("typing").innerHTML+=text.charAt(i);
+  i++; setTimeout(typing,70);
+ }
+}
+typing();
+
+/* runaway NO button */
+const no=document.getElementById("no");
+no.addEventListener("mouseover",()=>{
+ no.style.left=Math.random()*80+"vw";
+ no.style.top=Math.random()*80+"vh";
+});
+
+/* heart game */
+let score=0;
+setInterval(()=>{
+ if(document.getElementById("p2").classList.contains("active")){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerText="💖";
+  h.style.left=Math.random()*90+"vw";
+  h.style.top="-10px";
+  document.body.appendChild(h);
+
+  let fall=setInterval(()=>{
+   h.style.top=(h.offsetTop+5)+"px";
+   if(h.offsetTop>window.innerHeight){h.remove(); clearInterval(fall);}
+  },30);
+
+  h.onclick=()=>{
+   score++;
+   document.getElementById("score").innerText=score+" / 3";
+   h.remove();
+   if(score>=3){go(3);}
+  }
+ }
+},800);
+</script>
+
+</body>
+</html>
